@@ -1,4 +1,4 @@
-# Transfer Learning Example -- CNN Workshop
+# Transfer Learning Example - CNN Workshop
 
 This is a quick project to demonstrate the impact of transfer learning. Try running it after swapping the `PRETRAINED` value in `src/const.py`.
 
