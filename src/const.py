@@ -25,4 +25,4 @@ CLASSES = ['butterfly', 'cat', 'chicken', 'cow', 'dog', 'elephant', 'horse', 'sh
 
 # logging
 MLFLOW_TRACKING_URI = 'https://dagshub.com/ML-Purdue/cnn-workshop.mlflow'
-LOG_REMOTE = True
+LOG_REMOTE = False

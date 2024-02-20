@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from torch import nn
 import torchvision
 import mlflow
 import torch
@@ -11,7 +12,7 @@ from src import const
 
 def get_model():
     backbone = torchvision.models.resnet50(weights=torchvision.models.ResNet50_Weights.DEFAULT if const.PRETRAINED else None)
-    backbone.fc = torch.nn.LazyLinear(len(const.CLASSES))
+    backbone.fc = nn.Sequential(nn.LazyLinear(len(const.CLASSES)), nn.Softmax())
     return backbone
 
 

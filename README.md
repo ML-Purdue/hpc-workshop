@@ -8,6 +8,7 @@ This is a quick project to demonstrate the impact of transfer learning. Try runn
 python -m venv /path/to/venv
 source /path/to/venv/bin/activate
 pip install -r requirements.txt
+dvc pull -r http  # alternatively, run `scripts/prepare.sh`
 ```
 
 ## Training
