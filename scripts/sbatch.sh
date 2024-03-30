@@ -1,8 +1,7 @@
 #!/usr/bin/bash
 
-#SBATCH --account=gpu
+#SBATCH --account=mlp-n
 #SBATCH --gres=gpu:1
-#SBATCH --constraint=V100_32GB
 #SBATCH --time=2:00:00
 
 module load cuda cudnn anaconda

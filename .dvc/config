@@ -1,5 +1,5 @@
 ['remote "origin"']
     url = s3://dvc
-    endpointurl = https://dagshub.com/ML-Purdue/cnn-workshop.s3
+    endpointurl = https://dagshub.com/ML-Purdue/hpc-workshop.s3
 ['remote "http"']
-    url = https://dagshub.com/ML-Purdue/cnn-workshop.dvc
+    url = https://dagshub.com/ML-Purdue/hpc-workshop.dvc
