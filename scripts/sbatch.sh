@@ -4,7 +4,7 @@
 #SBATCH --gres=gpu:1
 #SBATCH --time=2:00:00
 
-module load cuda cudnn anaconda
+module load cuda/12.1.1 cudnn/cuda-12.1_8.9 anaconda
 source activate cnn-workshop
 
 cd ~/git/cnn-workshop
