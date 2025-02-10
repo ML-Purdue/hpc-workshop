@@ -1,5 +1,6 @@
-auto_mix_prep==0.2.0
-mlflow==2.10.2
-torch==2.2.0
-torchvision==0.17.0
-dvc-s3==3.0.1
+mlflow==2.20.1
+numpy==2.2.2
+torch==2.6.0
+torcheval==0.0.7
+torchvision==0.21.0
+nvitop==1.4.2

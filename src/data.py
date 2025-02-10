@@ -21,4 +21,4 @@ class Dataset(torch.utils.data.Dataset):
         y = torch.zeros(len(const.CLASSES))
         y[const.CLASSES.index(self.files[idx].split('/')[-2])] = 1
 
-        return [t.to(const.DEVICE) for t in (X, y)]
+        return X, y

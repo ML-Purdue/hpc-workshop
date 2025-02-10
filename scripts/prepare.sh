@@ -1,6 +1,4 @@
 #!/usr/bin/bash
 
-curl -L https://www.cs.purdue.edu/homes/jsetpal/data/animal-10.tgz -o data.tgz
-tar xvzf data.tgz
-rm data.tgz
+cp -r /depot/mlp/data/hpc-workshop data
 mkdir models

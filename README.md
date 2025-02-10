@@ -11,7 +11,8 @@ This is an example repository you can use to learn Purdue's HPC resources.
     b. Resources: specify GPU (generally any accelerator) count/type \
     c. Account: the queue under which the job should run \
     d. Node Type: the node under which the job should run \
-    e. + a ton more! [RTFM](https://wiki.rc.usf.edu/index.php/SLURM_Using_Features_and_Constraints)
+    e. + a ton more; [RTFM](https://wiki.rc.usf.edu/index.php/SLURM_Using_Features_and_Constraints)
+You can use `sfeatures` to list out the nodelist, CPUs, Memory, Available Features (resource type) as well as n-GPUs you can request at a time.
 
 After we meet the above specifications, our job is added to a queue. It is then run in weighted priority order, which is calculated based on your past usage, resources and walltime.
 
@@ -39,8 +40,8 @@ Once you create a keypair, __append the public key__ to `~/.ssh/authorized_keys`
 
 The home directory of your gilbreth account is limited to [25GB](https://www.rcac.purdue.edu/knowledge/faqs/ncdu). Things like your cache, datasets and large models can significantly use up this storage.
 
-However, there is a scratch space at `/scratch/gilbreth/<username>`. This storage may be deleted at any time, but has a significantly larger limit than your home directory. We setup the following split:
-1. Code: $HOME/path/to/repo/
+However, there is exists scratch space at `/scratch/gilbreth/<username>`. This storage may be deleted at any time, but has a significantly larger limit than your home directory. We setup the following split:
+1. Code: `$HOME/path/to/repo/`
 2. Data, Model, Cache: `/scratch/gilbreth/username/`
 
 We can do this by updating `$XDG_CACHE_HOME`. In your `~/.bashrc`, add:
@@ -49,7 +50,7 @@ export XDG_CACHE_HOME=/scratch/gilbreth/<username>/
 ```
 Replacing `<username>` with your alias. Then, run `source ~/.bashrc`. Your cache is now under scratch!
 
-You can run `mv ~/.cache/* /scratch/gilbreth/<username>`, or `rm -rf ~/.cache` to relinquish your storage.
+You can run `mv ~/.cache/* /scratch/gilbreth/<username>`, or `rm -rf ~/.cache` to relinquish your storage. `ncdu` can be used to show you where your storage quota is being used.
 
 ### IPython Override
 
@@ -154,6 +155,18 @@ srun --jobid=000001 --pty /usr/bin/bash -i
 
 You can cancel a queued or running job using `scancel <jobid>`.
 
+## Multi-GPU Runs
+
+Using multiple GPUs can speed up training significantly, and the example code in `src/model/train.py` shows the setup process for DDP, including logging and syncing metrics across devices.
+
+## Checkpointing
+
+To ensure training runs that are terminated early don't end up being wasted, checkpointing is very critical to any long-running job. Usually SLURM is very good with preventing resource conflicts that can trigger random crashes, however this is helpful to guardrail your own code.
+
+## Timed / `KeyBoardInterrupt`ed Early Stopping
+
+Since SLURM jobs are timed, it is crucial to ensure that runs end before the alloted time. A simple way to guardrail against that is using a timed shutdown of training, which we can also double with `KeyBoardInterrupt` to manually trigger a clean training exit.
+
 # Some MLOps Detail
 
 Crucially, this is a non-interactive training setup. This means you can update constants, and rerun training setups without worrying about having your local machine on during these runs.
@@ -162,8 +175,7 @@ While it is possible to port forward Jupyter Notebooks and use them for training
 
 Instead, it is recommended to use **module-driven development**, using:
 1. [Cookiecutter Data Science](https://drivendata.github.io/cookiecutter-data-science/) for package-based structure for machine learning code.
-2. [DVC](https://dvc.org/) for data versioning and pipelining. This does not work out-of-the-box; install `dvc==3.48.1` and run `curl https://gist.githubusercontent.com/jinensetpal/50ec16ff9a4d19ab7beb72c72254c248/raw/c667a4df0e20411c11386695bf1e051e1118c522/parser.py > $CONDA_PREFIX/lib/python3.11/site-packages/dvc/cli/parser.py` for a quick fix!
-3. [MLFlow](https://mlflow.org/) for experiment tracking.
+2. [MLFlow](https://mlflow.org/) / [WandB](https://wandb.ai/) for experiment tracking.
 
 # Fantastic Resources
 1. [RCAC SLURM Guide](https://www.rcac.purdue.edu/knowledge/gilbreth/)
