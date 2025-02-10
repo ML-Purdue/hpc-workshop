@@ -16,7 +16,7 @@ import json
 import sys
 import os
 
-from src.data import Dataset
+from src.data import Dataset, DataLoader
 from src import const
 
 
@@ -117,11 +117,11 @@ if __name__ == '__main__':
         dist.init_process_group('nccl')
         dist.barrier(device_ids=[const.DEVICE])
 
-    dataloader = torch.utils.data.DataLoader(Dataset(),
-                                             batch_size=const.BATCH_SIZE,
-                                             num_workers=const.N_WORKERS,
-                                             pin_memory=True,
-                                             shuffle=True)
+    dataloader = DataLoader(Dataset(),
+                            batch_size=const.BATCH_SIZE,
+                            num_workers=const.N_WORKERS,
+                            pin_memory=True,
+                            shuffle=True)
     model = get_model().to(const.DEVICE)
     if const.DDP:
         model = nn.parallel.DistributedDataParallel(model, device_ids=[const.DEVICE])

@@ -16,7 +16,7 @@ MODEL_NAME = 'resnet'
 LEARNING_RATE = 1E-3
 CHECKPOINTING = True
 PRETRAINED = True  # swap this!
-BATCH_SIZE = 64
+BATCH_SIZE = 144
 EPOCHS = 5
 
 # ddp
@@ -24,7 +24,7 @@ DDP = os.getenv('WORLD_SIZE') is not None
 PORT = 1337
 
 # dataset
-N_WORKERS = 4
+N_WORKERS = 8
 IMAGE_SIZE = (224, 224)
 N_CHANNELS = 3
 N_CLASSES = 2
