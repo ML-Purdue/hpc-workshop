@@ -74,6 +74,12 @@ Run `nvidia-smi` to check out your new A100!
 
 ## Creating a Runtime Environment
 
+### Loading Data
+
+For our speific task, we can load the data in two ways:
+1. If you are on an RCAC cluster: `scripts/prepare.sh` will link the directory from the MLP data depot directly.
+2. Otherwise, you can use `scripts/download.sh`. It will pull the dataset from our remote and set it up, this might take a little longer and storage will count against your quota.
+
 ### Loading Modules
 Once we have the compute, our next objective is to setup runtime dependencies. Let's start by checking if we have python:
 ```bash
@@ -121,15 +127,17 @@ The final step is to create a bash script that:
 2. Loads required modules and dependencies.
 3. Carries out the training run.
 
-You can find an example at `scripts/sbatch.sh`.
+You can find an example at `scripts/sbatch.sh`. An example of a script that works with LWSN servers is also made available at `scripts/sbatch-lwsnqueues.sh`.
 
 We can run this script using `sbatch scripts/sbatch.sh`!
+
+Note: you may need to update the `cd` path to the relevant project root.
 
 ## Monitoring the Job
 
 You can check `squeue` for a status regarding your job.
 ```bash
-(/home/jsetpal/.conda/envs/cent7/2020.11-py38/llm-finetuning) jsetpal@gilbreth-fe02:~ $ squeue                                 
+(/home/jsetpal/.conda/envs/cent7/2020.11-py38/llm-finetuning) jsetpal@gilbreth-fe02:~ $ squeue -u jsetpal
 JOBID        USER      ACCOUNT      NAME             NODES   CPUS  TIME_LIMIT ST TIME
 000001       jsetpal   gpu          sbatch.sh            1      1     4:00:00  R 0:10
 000002       jsetpal   gpu          sbatch.sh            1      1     4:00:00 PD 0:00

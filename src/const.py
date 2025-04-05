@@ -16,7 +16,7 @@ MODEL_NAME = 'resnet'
 LEARNING_RATE = 1E-3
 CHECKPOINTING = True
 PRETRAINED = True  # swap this!
-BATCH_SIZE = 144
+BATCH_SIZE = 36
 EPOCHS = 5
 
 # ddp
