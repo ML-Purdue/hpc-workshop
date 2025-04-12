@@ -10,7 +10,7 @@
 # activate your environment in the interactive shell you use to schedule this job
 #######
 
-MLFLOW_TRACKING_USERNAME=$MLFLOW_USERNAME \
-MLFLOW_TRACKING_PASSWORD=$MLFLOW_TOKEN \
+cd /path/to/hpc-workshop
+
 OMP_NUM_THREADS=80 \
 torchrun --standalone --nnodes=1 --nproc_per_node=gpu -m src.train resnet50_finetuned nocheckpoint
